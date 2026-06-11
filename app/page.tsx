@@ -1,10 +1,16 @@
 'use client';
 
 import Link from 'next/link';
+import { Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
+import Reveal from '@/components/Reveal';
+'use client';
+
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import Reveal from '@/components/Reveal';
 
-export default function HomePage() {
+function HomeContent() {
   const params = useSearchParams();
   const lang = params.get('lang') === 'ru' ? 'ru' : 'en';
   const toggleLang = lang === 'ru' ? 'en' : 'ru';
@@ -144,5 +150,12 @@ export default function HomePage() {
         </div>
       </section>
     </main>
+  );
+}
+export default function HomePage() {
+  return (
+    <Suspense fallback={null}>
+      <HomeContent />
+    </Suspense>
   );
 }
