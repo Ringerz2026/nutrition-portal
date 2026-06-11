@@ -354,3 +354,37 @@ select.input { background: white; }
     flex-direction: column;
   }
 }
+.homeHero,
+.homeSection,
+.serviceGrid,
+.heroCard,
+.premiumCard {
+  animation: fadeUp 0.8s ease both;
+}
+
+.serviceGrid .premiumCard:nth-child(1) { animation-delay: 0.05s; }
+.serviceGrid .premiumCard:nth-child(2) { animation-delay: 0.15s; }
+.serviceGrid .premiumCard:nth-child(3) { animation-delay: 0.25s; }
+.serviceGrid .premiumCard:nth-child(4) { animation-delay: 0.35s; }
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.premiumCard,
+.heroCard {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.premiumCard:hover,
+.heroCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 70px rgba(31, 42, 68, 0.13);
+}
