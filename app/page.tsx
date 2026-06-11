@@ -7,112 +7,95 @@ import { useSearchParams } from 'next/navigation';
 function HomeContent() {
   const params = useSearchParams();
   const lang = params.get('lang') === 'ru' ? 'ru' : 'en';
-
-  const copy =
-    lang === 'ru'
-      ? {
-          title: 'Maria Nutrition',
-          subtitle:
-            'Персональное питание для здоровья, энергии и долгосрочного благополучия.',
-          signup: 'Регистрация',
-          login: 'Вход',
-          switch: 'English',
-        }
-      : {
-          title: 'Maria Nutrition',
-          subtitle:
-            'Personalised nutrition guidance for long-term health and wellbeing.',
-          signup: 'Sign Up',
-          login: 'Login',
-          switch: 'Русский',
-        };
-
   const nextLang = lang === 'ru' ? 'en' : 'ru';
 
-  return (
-    <main
-      style={{
-        maxWidth: '1100px',
-        margin: '0 auto',
-        padding: '80px 24px',
-      }}
-    >
-      <nav
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '60px',
-        }}
-      >
-        <h2>{copy.title}</h2>
+  const copy = lang === 'ru'
+    ? {
+        brand: 'Maria Nutrition',
+        switch: 'English',
+        login: 'Вход',
+        signup: 'Получить доступ',
+        hero: 'Персональное питание для здоровья, энергии и долгосрочного благополучия.',
+        intro: 'Закрытая платформа с протоколами питания, рецептами и образовательными материалами на русском и английском языке.',
+        about: 'О подходе',
+        aboutText: 'Практичные рекомендации, основанные на нутрициологии, образе жизни и устойчивых привычках. Платформа помогает клиентам лучше понимать питание и применять знания в повседневной жизни.',
+        services: 'Направления',
+        gut: 'Здоровье кишечника',
+        weight: 'Контроль веса',
+        hormones: 'Гормоны и энергия',
+        family: 'Семейное питание',
+        content: 'Закрытая библиотека',
+        contentText: 'Участники получают доступ к материалам, статьям, рецептам и протоколам в удобном личном кабинете.',
+        cta: 'Перейти в личный кабинет'
+      }
+    : {
+        brand: 'Maria Nutrition',
+        switch: 'Русский',
+        login: 'Login',
+        signup: 'Access member area',
+        hero: 'Personalised nutrition guidance for long-term health, energy and wellbeing.',
+        intro: 'A private platform with structured nutrition protocols, recipes and educational content in English and Russian.',
+        about: 'The approach',
+        aboutText: 'Practical, evidence-informed guidance focused on nutrition, lifestyle and sustainable habits. The platform helps clients understand nutrition and apply it in daily life.',
+        services: 'Focus areas',
+        gut: 'Gut Health',
+        weight: 'Weight Management',
+        hormones: 'Hormones & Energy',
+        family: 'Family Nutrition',
+        content: 'Private content library',
+        contentText: 'Members can access articles, recipes, protocols and programme materials through a secure dashboard.',
+        cta: 'Go to dashboard'
+      };
 
-        <div style={{ display: 'flex', gap: '16px' }}>
+  return (
+    <main className="premiumHome">
+      <header className="premiumNav">
+        <Link href={`/?lang=${lang}`} className="premiumBrand">{copy.brand}</Link>
+        <nav>
           <Link href={`/?lang=${nextLang}`}>{copy.switch}</Link>
           <Link href={`/login?lang=${lang}`}>{copy.login}</Link>
-          <Link href={`/signup?lang=${lang}`}>{copy.signup}</Link>
+          <Link className="button small" href={`/signup?lang=${lang}`}>{copy.signup}</Link>
+        </nav>
+      </header>
+
+      <section className="homeHero">
+        <div>
+          <p className="eyebrow">Premium Nutrition Platform</p>
+          <h1>{copy.hero}</h1>
+          <p>{copy.intro}</p>
+          <div className="heroButtons">
+            <Link className="button" href={`/signup?lang=${lang}`}>{copy.signup}</Link>
+            <Link className="button secondary" href={`/login?lang=${lang}`}>{copy.login}</Link>
+          </div>
         </div>
-      </nav>
 
-      <section style={{ textAlign: 'center', padding: '80px 0' }}>
-        <h1
-          style={{
-            fontSize: '56px',
-            marginBottom: '24px',
-          }}
-        >
-          {copy.title}
-        </h1>
-
-        <p
-          style={{
-            fontSize: '22px',
-            maxWidth: '700px',
-            margin: '0 auto 40px',
-          }}
-        >
-          {copy.subtitle}
-        </p>
-
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '16px',
-            flexWrap: 'wrap',
-          }}
-        >
-          <Link href={`/signup?lang=${lang}`}>
-            {copy.signup}
-          </Link>
-
-          <Link href={`/login?lang=${lang}`}>
-            {copy.login}
-          </Link>
+        <div className="heroCard">
+          <p>Gut health</p>
+          <p>Metabolism</p>
+          <p>Energy</p>
+          <p>Lifestyle</p>
         </div>
       </section>
 
-      <section
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))',
-          gap: '24px',
-          marginTop: '60px',
-        }}
-      >
-        <div className="card">
-          <h3>Gut Health</h3>
-          <p>Evidence-based guidance and nutrition education.</p>
-        </div>
+      <section className="homeSection">
+        <p className="eyebrow">{copy.about}</p>
+        <h2>{copy.aboutText}</h2>
+      </section>
 
-        <div className="card">
-          <h3>Weight Management</h3>
-          <p>Sustainable strategies for long-term results.</p>
-        </div>
+      <section className="serviceGrid">
+        {[copy.gut, copy.weight, copy.hormones, copy.family].map((item) => (
+          <div className="premiumCard" key={item}>
+            <h3>{item}</h3>
+            <p>Structured guidance designed to be practical, realistic and easy to follow.</p>
+          </div>
+        ))}
+      </section>
 
-        <div className="card">
-          <h3>Bilingual Content</h3>
-          <p>Available in English and Russian.</p>
+      <section className="homeSection alt">
+        <div>
+          <p className="eyebrow">{copy.content}</p>
+          <h2>{copy.contentText}</h2>
+          <Link className="button" href={`/dashboard?lang=${lang}`}>{copy.cta}</Link>
         </div>
       </section>
     </main>
