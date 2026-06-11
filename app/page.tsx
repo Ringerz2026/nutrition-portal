@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-
+import Reveal from '@/components/Reveal';
 function HomeContent() {
   const params = useSearchParams();
   const lang = params.get('lang') === 'ru' ? 'ru' : 'en';
@@ -49,6 +49,8 @@ function HomeContent() {
 
   return (
     <main className="premiumHome">
+       return (
+    <main className="premiumHome">
       <header className="premiumNav">
         <Link href={`/?lang=${lang}`} className="premiumBrand">{copy.brand}</Link>
         <nav>
@@ -58,50 +60,59 @@ function HomeContent() {
         </nav>
       </header>
 
-      <section className="homeHero">
-        <div>
-          <p className="eyebrow">Premium Nutrition Platform</p>
-          <h1>{copy.hero}</h1>
-          <p>{copy.intro}</p>
-          <div className="heroButtons">
-            <Link className="button" href={`/signup?lang=${lang}`}>{copy.signup}</Link>
-            <Link className="button secondary" href={`/login?lang=${lang}`}>{copy.login}</Link>
+      <Reveal>
+        <section className="homeHero">
+          <div>
+            <p className="eyebrow">Premium Nutrition Platform</p>
+            <h1>{copy.hero}</h1>
+            <p>{copy.intro}</p>
+            <div className="heroButtons">
+              <Link className="button" href={`/signup?lang=${lang}`}>{copy.signup}</Link>
+              <Link className="button secondary" href={`/login?lang=${lang}`}>{copy.login}</Link>
+            </div>
           </div>
-        </div>
 
-        <div className="heroCard">
-          <p>Gut health</p>
-          <p>Metabolism</p>
-          <p>Energy</p>
-          <p>Lifestyle</p>
-        </div>
-      </section>
+          <div className="heroCard">
+            <p>Gut health</p>
+            <p>Metabolism</p>
+            <p>Energy</p>
+            <p>Lifestyle</p>
+          </div>
+        </section>
+      </Reveal>
 
-      <section className="homeSection">
-        <p className="eyebrow">{copy.about}</p>
-        <h2>{copy.aboutText}</h2>
-      </section>
+      <Reveal>
+        <section className="homeSection">
+          <p className="eyebrow">{copy.about}</p>
+          <h2>{copy.aboutText}</h2>
+        </section>
+      </Reveal>
 
       <section className="serviceGrid">
         {[copy.gut, copy.weight, copy.hormones, copy.family].map((item) => (
-          <div className="premiumCard" key={item}>
-            <h3>{item}</h3>
-            <p>Structured guidance designed to be practical, realistic and easy to follow.</p>
-          </div>
+          <Reveal key={item}>
+            <div className="premiumCard">
+              <h3>{item}</h3>
+              <p>Structured guidance designed to be practical, realistic and easy to follow.</p>
+            </div>
+          </Reveal>
         ))}
       </section>
 
-      <section className="homeSection alt">
-        <div>
-          <p className="eyebrow">{copy.content}</p>
-          <h2>{copy.contentText}</h2>
-          <Link className="button" href={`/dashboard?lang=${lang}`}>{copy.cta}</Link>
-        </div>
-      </section>
+      <Reveal>
+        <section className="homeSection alt">
+          <div>
+            <p className="eyebrow">{copy.content}</p>
+            <h2>{copy.contentText}</h2>
+            <Link className="button" href={`/dashboard?lang=${lang}`}>{copy.cta}</Link>
+          </div>
+        </section>
+      </Reveal>
     </main>
   );
 }
-
+  );
+}
 export default function HomePage() {
   return (
     <Suspense fallback={null}>
