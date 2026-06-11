@@ -3,155 +3,122 @@
 import Link from 'next/link';
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import Reveal from '@/components/Reveal';
-'use client';
-
-import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import Reveal from '@/components/Reveal';
 
 function HomeContent() {
   const params = useSearchParams();
   const lang = params.get('lang') === 'ru' ? 'ru' : 'en';
-  const toggleLang = lang === 'ru' ? 'en' : 'ru';
 
-  const copy = lang === 'ru'
-    ? {
-        eyebrow: 'Премиальная нутрициологическая платформа',
-        title: 'Персональное питание для здоровья, энергии и долгосрочного благополучия.',
-        intro: 'Получайте доступ к протоколам питания, рецептам и образовательным материалам на русском и английском языке в закрытой зоне для участников.',
-        signup: 'Получить доступ',
-        login: 'Войти',
-        panelSmall: 'Научный подход к питанию',
-        panelTitle: 'Кишечник · Метаболизм · Энергия · Образ жизни',
-        panelBadge: 'Закрытая библиотека материалов',
-        included: 'Что включено',
-        includedTitle: 'Понятные рекомендации, практические инструменты и структурированное обучение.',
-        c1: 'Протоколы питания',
-        c1p: 'Рекомендации по воде, пищеварению, сахару, кишечнику и устойчивым пищевым привычкам.',
-        c2: 'Рецепты и идеи питания',
-        c2p: 'Простые блюда и рецепты, которые помогают питаться здорово без усложнений.',
-        c3: 'Два языка',
-        c3p: 'Основные материалы доступны на русском и английском языке.',
-        member: 'Для участников',
-        memberTitle: 'Закрытая библиотека питания для обучения и регулярности.',
-        memberText: 'Участники могут безопасно входить в личный кабинет, читать материалы и проходить программу в удобном темпе.',
-        dashboard: 'Перейти в кабинет'
-      }
-    : {
-        eyebrow: 'Premium Nutrition Platform',
-        title: 'Personalised nutrition guidance for long-term health and wellbeing.',
-        intro: 'Access structured nutrition protocols, recipes and educational content in English and Russian through a secure member area.',
-        signup: 'Access member area',
-        login: 'Login',
-        panelSmall: 'Evidence-based nutrition',
-        panelTitle: 'Gut health · Metabolism · Energy · Lifestyle',
-        panelBadge: 'Members-only content library',
-        included: 'What’s included',
-        includedTitle: 'Clear guidance, practical tools and structured learning.',
-        c1: 'Nutrition Protocols',
-        c1p: 'Structured guidance for hydration, digestion, blood sugar, gut health and sustainable eating habits.',
-        c2: 'Recipes & Meal Ideas',
-        c2p: 'Simple meals and recipes designed to make healthy eating consistent, realistic and enjoyable.',
-        c3: 'Bilingual Content',
-        c3p: 'All key materials can be accessed in English and Russian for a complete bilingual experience.',
-        member: 'For members',
-        memberTitle: 'A private nutrition library designed around education and consistency.',
-        memberText: 'Subscribers can log in securely, access published materials, read articles and follow the programme at their own pace.',
-        dashboard: 'Go to dashboard'
-      };
+  const copy =
+    lang === 'ru'
+      ? {
+          title: 'Maria Nutrition',
+          subtitle:
+            'Персональное питание для здоровья, энергии и долгосрочного благополучия.',
+          signup: 'Регистрация',
+          login: 'Вход',
+          switch: 'English',
+        }
+      : {
+          title: 'Maria Nutrition',
+          subtitle:
+            'Personalised nutrition guidance for long-term health and wellbeing.',
+          signup: 'Sign Up',
+          login: 'Login',
+          switch: 'Русский',
+        };
+
+  const nextLang = lang === 'ru' ? 'en' : 'ru';
 
   return (
-    <main>
-      <header className="premiumTopbar">
-        <Link className="premiumLogo" href={`/?lang=${lang}`}>
-          Maria Nutrition
-        </Link>
+    <main
+      style={{
+        maxWidth: '1100px',
+        margin: '0 auto',
+        padding: '80px 24px',
+      }}
+    >
+      <nav
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '60px',
+        }}
+      >
+        <h2>{copy.title}</h2>
 
-        <nav className="premiumTopnav">
-          <Link href={`/?lang=${toggleLang}`}>{toggleLang.toUpperCase()}</Link>
+        <div style={{ display: 'flex', gap: '16px' }}>
+          <Link href={`/?lang=${nextLang}`}>{copy.switch}</Link>
           <Link href={`/login?lang=${lang}`}>{copy.login}</Link>
-          <Link className="button small" href={`/signup?lang=${lang}`}>{copy.signup}</Link>
-        </nav>
-      </header>
+          <Link href={`/signup?lang=${lang}`}>{copy.signup}</Link>
+        </div>
+      </nav>
 
-      <section className="premiumHero">
-        <div className="container premiumHeroGrid">
-          <Reveal>
-            <div>
-              <p className="eyebrow">{copy.eyebrow}</p>
-              <h1>{copy.title}</h1>
-              <p className="heroText">{copy.intro}</p>
-              <div className="heroButtons">
-                <Link className="button" href={`/signup?lang=${lang}`}>{copy.signup}</Link>
-                <Link className="button secondary" href={`/login?lang=${lang}`}>{copy.login}</Link>
-                <Link className="button ghost" href={`/?lang=${toggleLang}`}>{toggleLang.toUpperCase()}</Link>
-              </div>
-            </div>
-          </Reveal>
+      <section style={{ textAlign: 'center', padding: '80px 0' }}>
+        <h1
+          style={{
+            fontSize: '56px',
+            marginBottom: '24px',
+          }}
+        >
+          {copy.title}
+        </h1>
 
-          <Reveal>
-            <div className="heroPanel">
-              <p>{copy.panelSmall}</p>
-              <h2>{copy.panelTitle}</h2>
-              <span>{copy.panelBadge}</span>
-            </div>
-          </Reveal>
+        <p
+          style={{
+            fontSize: '22px',
+            maxWidth: '700px',
+            margin: '0 auto 40px',
+          }}
+        >
+          {copy.subtitle}
+        </p>
+
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '16px',
+            flexWrap: 'wrap',
+          }}
+        >
+          <Link href={`/signup?lang=${lang}`}>
+            {copy.signup}
+          </Link>
+
+          <Link href={`/login?lang=${lang}`}>
+            {copy.login}
+          </Link>
         </div>
       </section>
 
-      <section className="premiumSection">
-        <div className="container">
-          <Reveal>
-            <p className="eyebrow">{copy.included}</p>
-            <h2>{copy.includedTitle}</h2>
-          </Reveal>
-
-          <div className="premiumGrid">
-            <Reveal>
-              <div className="premiumCard">
-                <h3>{copy.c1}</h3>
-                <p>{copy.c1p}</p>
-              </div>
-            </Reveal>
-
-            <Reveal>
-              <div className="premiumCard">
-                <h3>{copy.c2}</h3>
-                <p>{copy.c2p}</p>
-              </div>
-            </Reveal>
-
-            <Reveal>
-              <div className="premiumCard">
-                <h3>{copy.c3}</h3>
-                <p>{copy.c3p}</p>
-              </div>
-            </Reveal>
-          </div>
+      <section
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))',
+          gap: '24px',
+          marginTop: '60px',
+        }}
+      >
+        <div className="card">
+          <h3>Gut Health</h3>
+          <p>Evidence-based guidance and nutrition education.</p>
         </div>
-      </section>
 
-      <section className="premiumSection alt">
-        <div className="container premiumSplit">
-          <Reveal>
-            <div>
-              <p className="eyebrow">{copy.member}</p>
-              <h2>{copy.memberTitle}</h2>
-            </div>
-          </Reveal>
+        <div className="card">
+          <h3>Weight Management</h3>
+          <p>Sustainable strategies for long-term results.</p>
+        </div>
 
-          <Reveal>
-            <div className="premiumCard">
-              <p>{copy.memberText}</p>
-              <Link className="button" href={`/dashboard?lang=${lang}`}>{copy.dashboard}</Link>
-            </div>
-          </Reveal>
+        <div className="card">
+          <h3>Bilingual Content</h3>
+          <p>Available in English and Russian.</p>
         </div>
       </section>
     </main>
   );
 }
+
 export default function HomePage() {
   return (
     <Suspense fallback={null}>
