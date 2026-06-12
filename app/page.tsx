@@ -65,8 +65,9 @@ function HomeContent() {
       </header>
 
       <Reveal>
-        <section className="homeHero">
-          <div>
+       <div className="heroImageWrap">
+  <img src="/images/maria-hero.jpg" alt="Maria Nutrition" className="heroImage" />
+</div>
             <p className="eyebrow">Premium Nutrition Platform</p>
             <h1>{copy.hero}</h1>
             <p>{copy.intro}</p>
