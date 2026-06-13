@@ -2,8 +2,9 @@ import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 
-export async function POST() {
+async function signOut(request: Request) {
   const cookieStore = cookies();
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -17,11 +18,20 @@ export async function POST() {
         },
         remove(name: string, options: any) {
           cookieStore.set({ name, value: '', ...options });
-        }
-      }
+        },
+      },
     }
   );
 
   await supabase.auth.signOut();
-  return NextResponse.redirect(new URL('/', process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'));
+
+  return NextResponse.redirect(new URL('/', request.url));
+}
+
+export async function POST(request: Request) {
+  return signOut(request);
+}
+
+export async function GET(request: Request) {
+  return signOut(request);
 }
