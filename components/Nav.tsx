@@ -14,13 +14,15 @@ export default function Nav({ lang = 'en' }: { lang?: Lang }) {
       <div className="navlinks">
         <Link href={`/dashboard?lang=${lang}`}>{t.dashboard}</Link>
         <Link href={`/account?lang=${lang}`}>Account</Link>
-        <Link href={`/admin?lang=${lang}`}>{t.admin}</Link>
+<Link href={`/admin/users?lang=${lang}`}>{t.admin}</Link>
         <Link className="button ghost" href={`?lang=${toggleLang}`}>
           {toggleLang.toUpperCase()}
         </Link>
-        <Link className="button" href={`/logout?lang=${lang}`}>
-          Logout
-        </Link>
+       <form action="/api/auth/signout" method="post">
+  <button className="button" type="submit">
+    Logout
+  </button>
+</form>
       </div>
     </nav>
   );
