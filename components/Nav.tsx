@@ -1,39 +1,37 @@
-import Link from 'next/link';
-import { Lang, dictionary } from '@/lib/i18n';
+import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
 
-export default function Nav({ lang = 'en' }: { lang?: Lang }) {
-  const t = dictionary[lang];
-  const toggleLang = lang === 'en' ? 'ru' : 'en';
+async function signOut(request: Request) {
+  const cookieStore = cookies();
 
-  return (
-    <nav className="nav">
-      <Link className="logo" href={`/?lang=${lang}`}>
-        Nutrition Portal
-      </Link>
-
-      <div className="navlinks">
-        <Link href={`/dashboard?lang=${lang}`}>
-          {t.dashboard}
-        </Link>
-
-        <Link href={`/account?lang=${lang}`}>
-          Account
-        </Link>
-
-        <Link href={`/admin/users?lang=${lang}`}>
-          {t.admin}
-        </Link>
-
-        <Link className="button ghost" href={`?lang=${toggleLang}`}>
-          {toggleLang.toUpperCase()}
-        </Link>
-
-        <form action="/api/auth/signout" method="post">
-          <button className="button" type="submit">
-            Logout
-          </button>
-        </form>
-      </div>
-    </nav>
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
+        },
+        set(name: string, value: string, options: any) {
+          cookieStore.set({ name, value, ...options });
+        },
+        remove(name: string, options: any) {
+          cookieStore.set({ name, value: '', ...options });
+        },
+      },
+    }
   );
+
+  await supabase.auth.signOut();
+
+  return NextResponse.redirect(new URL('/', request.url));
+}
+
+export async function GET(request: Request) {
+  return signOut(request);
+}
+
+export async function POST(request: Request) {
+  return signOut(request);
 }
