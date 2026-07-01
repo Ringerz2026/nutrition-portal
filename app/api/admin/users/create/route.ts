@@ -7,6 +7,10 @@ export async function POST(request: Request) {
   const email = String(formData.get('email') || '');
   const password = String(formData.get('password') || '');
 
+  if (!email || !password) {
+    return NextResponse.json({ error: 'Email and password required' }, { status: 400 });
+  }
+
   const supabase = createAdminClient();
 
   const { data, error } = await supabase.auth.admin.createUser({
@@ -22,16 +26,16 @@ export async function POST(request: Request) {
     );
   }
 
-  await supabase.from('profiles').insert({
+  await supabase.from('profiles').upsert({
     id: data.user.id,
     email,
     role: 'subscriber',
     subscription_status: 'active',
   });
 
-  await supabase.from('subscriptions').insert({
+  await supabase.from('subscriptions').upsert({
     user_id: data.user.id,
-    
+    status: 'active',
     stripe_subscription_id: 'manual',
     stripe_customer_id: 'manual',
   });
