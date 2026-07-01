@@ -14,8 +14,6 @@ export default function Nav({ lang = 'en' }: { lang?: Lang }) {
       <div className="navlinks">
         <Link href={`/dashboard?lang=${lang}`}>{t.dashboard}</Link>
         <Link href={`/account?lang=${lang}`}>Account</Link>
-        <Link href={`/admin?lang=${lang}`}>Articles</Link>
-        <Link href={`/admin/users?lang=${lang}`}>Users</Link>
 
         <Link className="button ghost" href={`?lang=${toggleLang}`}>
           {toggleLang.toUpperCase()}
