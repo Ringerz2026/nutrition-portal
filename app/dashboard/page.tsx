@@ -1,9 +1,3 @@
-import Reveal from '@/components/Reveal';
-<Reveal>
-  <div className="card">
-    ...
-  </div>
-</Reveal>
 import Nav from '@/components/Nav';
 import LanguageSwitch from '@/components/LanguageSwitch';
 import { getPublishedContent, localized } from '@/lib/content-db';
