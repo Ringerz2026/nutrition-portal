@@ -5,12 +5,12 @@ import { requireAdmin } from '@/lib/supabase-server';
 import { deleteContent } from './actions';
 
 export default async function AdminPage() {
-  await requireAdmin();
+  const { profile } = await requireAdmin();
   const items = await getAllContentForAdmin();
 
   return (
     <>
-      <Nav lang="en" />
+      <Nav isAdmin={profile?.role === 'admin'} />
       <main className="container">
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'center' }}>
           <div>

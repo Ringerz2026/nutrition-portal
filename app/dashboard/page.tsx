@@ -6,7 +6,7 @@ import { requireActiveSubscriber } from '@/lib/supabase-server';
 import Link from 'next/link';
 
 export default async function Dashboard({ searchParams }: { searchParams?: { lang?: string } }) {
-  await requireActiveSubscriber();
+  const { profile } = await requireActiveSubscriber();
   const lang = getLang(searchParams);
   const t = dictionary[lang];
   const items = await getPublishedContent();
@@ -29,7 +29,7 @@ export default async function Dashboard({ searchParams }: { searchParams?: { lan
 
   return (
     <>
-      <Nav lang={lang} />
+      <Nav lang={lang} isAdmin={profile?.role === 'admin'} />
       <main className="container">
         <LanguageSwitch lang={lang} path="/dashboard" />
         <h1>{copy.title}</h1>
