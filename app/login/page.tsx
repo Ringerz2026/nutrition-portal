@@ -1,10 +1,5 @@
 'use client';
-import Reveal from '@/components/Reveal';
-<Reveal>
-  <div className="card">
-    ...
-  </div>
-</Reveal>
+
 import { Suspense, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
@@ -28,7 +23,7 @@ function LoginContent() {
       const supabase = createClient();
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
-      router.push(`/dashboard?lang=${lang}`);
+      router.push(`/admin?lang=${lang}`);
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');
